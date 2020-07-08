@@ -25,6 +25,19 @@
             <response code="403">Acceso Prohibido</response>
             <response code="422">Entidad no procesable, usuario y clave invalidos</response>
         </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.ControllerBaseApp`1.SetCulture">
+            <summary>
+            Cultura predeterminada del API
+            </summary>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.ControllerBaseApp`1.SendAsync``1(MediatR.IRequest{``0})">
+            <summary>
+            Enviar comandos a MediatR
+            </summary>
+            <typeparam name="TResult">Resultados</typeparam>
+            <param name="command">Comando</param>
+            <returns></returns>
+        </member>
         <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.Get">
             <summary>
             Obtiene un Listado de Entidades con sus codigos

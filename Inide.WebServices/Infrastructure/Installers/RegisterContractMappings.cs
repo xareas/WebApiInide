@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
 using Inide.WebServices.Application.Handlers.Entidades;
-using Inide.WebServices.Application.Handlers.Event;
+using Inide.WebServices.Application.Handlers.Eventos;
 using Inide.WebServices.Constants;
 using Inide.WebServices.Contracts;
 using Inide.WebServices.Infrastructure.Helpers;
@@ -15,6 +15,7 @@ using Inide.WebServices.Services;
 using Inide.WebServices.Services.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Serenity.Data;
 
 namespace Inide.WebServices.Infrastructure.Installers
 {
@@ -38,7 +39,8 @@ namespace Inide.WebServices.Infrastructure.Installers
 
             //Manager de Repositorios
             services.AddScoped<IRepositoryManager, RepositoryManager>();
-            
+            services.AddTransient<IUnitOfWork>(db => new UnitOfWork(new SqlConnection(config.GetConnectionString(AppWebService.DefaultDb))));
+
             //Entidades del Negocio
             //Manejo de la entidad de dominio evento
             services.AddTransient<IEventoRepository<Evento>, EventoRepository>();

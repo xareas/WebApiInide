@@ -21,7 +21,8 @@ namespace Inide.WebServices.Application.RequestModels
         public UserAuthenticationRequestValidator()
         {
             RuleFor(o => o.UserName)
-                .NotEmpty().NotNull();
+                .NotEmpty()
+                .NotNull();
             RuleFor(o => o.Password)
                 .NotEmpty().WithMessage(ValidationMessages.err0003)
                 .NotNull().WithMessage(ValidationMessages.err0004);

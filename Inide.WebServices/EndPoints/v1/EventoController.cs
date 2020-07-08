@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Net.Mime;
 using System.Threading.Tasks;
-using Inide.WebServices.Application.Handlers.Event;
+using Inide.WebServices.Application.Handlers.Eventos;
 using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Infrastructure.Filters;
@@ -39,7 +39,7 @@ namespace Inide.WebServices.EndPoints.v1
         [ProducesResponseType(typeof(IEnumerable<EventoResponse>), Status200OK)]
         public async Task<IEnumerable<EventoResponse>> Get()
         {
-           return await Mediator.Send(_commands.GetAll);
+           return await SendAsync(_commands.GetAll);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace Inide.WebServices.EndPoints.v1
         {
             var command = _commands.GetPaged;
             command.Parameters = urlQueryParameters;
-            return await Mediator.Send(command);
+            return await SendAsync(command);
         }
 
         /// <summary>
@@ -65,13 +65,13 @@ namespace Inide.WebServices.EndPoints.v1
         [Route("{codigo:long}")]
         [HttpGet]
         [ProducesResponseType(typeof(EventoResponse), Status200OK)]
-        [ProducesResponseType(typeof(EventoResponse), Status404NotFound)]
+        [ProducesResponseType(typeof(ApiResponse),Status404NotFound)]
         public async Task<EventoResponse> Get(long codigo)
         {
             var command = _commands.GetById;
             command.EntityId = codigo;
             
-            return await Mediator.Send(command);
+            return await SendAsync(command);
         }
 
        
@@ -87,7 +87,7 @@ namespace Inide.WebServices.EndPoints.v1
             var command = _commands.GetCategory;
             command.Categoria = categoria;
             
-            return await Mediator.Send(command);
+            return await SendAsync(command);
         }
         
 
@@ -102,14 +102,18 @@ namespace Inide.WebServices.EndPoints.v1
         /// <response code="400">Si el evento es nulo</response>
         /// <response code="422">Si los valores del evento son invalidos</response>
         [HttpPost,ValidationFilter]
+        //[ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Post))]
         [ProducesResponseType(typeof(ApiResponse), Status201Created)]
+        [ProducesResponseType(typeof(ApiResponse), Status401Unauthorized)]
+        [ProducesResponseType(typeof(ApiResponse), Status403Forbidden)]
+        [ProducesResponseType(typeof(ApiResponse), Status400BadRequest)]
         [ProducesResponseType(typeof(ApiResponse), Status422UnprocessableEntity)]
         public async Task<ApiResponse> Post([FromBody] CreateEventoRequest createRequest)
         {
             var command = _commands.Post;
             command.NewEntity = createRequest;
             
-            return await Mediator.Send(command);
+            return await SendAsync(command);
 
         }
 
@@ -132,7 +136,7 @@ namespace Inide.WebServices.EndPoints.v1
            command.EntityId = id;
            command.EntityUpdate = updateRequest;
 
-           return await Mediator.Send(command);
+           return await SendAsync(command);
 
         }
 
@@ -149,10 +153,12 @@ namespace Inide.WebServices.EndPoints.v1
         {
             var command = _commands.Delete;
             command.EntityId = codigo;
-
-            return await Mediator.Send(command);
+           
+            return await SendAsync(command);
         }
 
+
+        
        
     } //fin clase
 } //fin namesapce

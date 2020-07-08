@@ -31,7 +31,7 @@ namespace Inide.WebServices.EndPoints.v1
         [ProducesResponseType(typeof(IEnumerable<EntidadResponse>), Status200OK)]
         public async Task<IEnumerable<EntidadResponse>> Get()
         {
-            return await Mediator.Send(_commands.GetAll);
+            return await SendAsync(_commands.GetAll);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Inide.WebServices.EndPoints.v1
         [ProducesResponseType(typeof(IEnumerable<EntidadResponse>), Status200OK)]
         public async Task<IEnumerable<EntidadResponse>> GetElementos(long id)
         {
-            return await Mediator.Send(_commands.GetAll);
+            return await SendAsync(_commands.GetAll);
         }
 
 

@@ -33,12 +33,28 @@ namespace Inide.WebServices.EndPoints.v1
             SetCulture();
         }
 
-
+        /// <summary>
+        /// Cultura predeterminada del API
+        /// </summary>
         private static void SetCulture()
         {
            var culture = CultureInfo.GetCultureInfo(AppWebService.DefaultCulture);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
         }
+
+        /// <summary>
+        /// Enviar comandos a MediatR
+        /// </summary>
+        /// <typeparam name="TResult">Resultados</typeparam>
+        /// <param name="command">Comando</param>
+        /// <returns></returns>
+        protected async Task<TResult> SendAsync<TResult>(IRequest<TResult> command)
+        {
+            return await Mediator.Send(command);
+        }
+        
+        
+
     }
 }
