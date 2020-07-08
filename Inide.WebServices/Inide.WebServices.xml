@@ -1,0 +1,305 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Inide.WebServices</name>
+    </assembly>
+    <members>
+        <member name="T:Inide.WebServices.Contracts.ILoggerSettings">
+            <summary>
+            Inteface para la configuracion del Logging
+            </summary>
+        </member>
+        <member name="T:Inide.WebServices.Contracts.ILogWriter">
+            <summary>
+            Interface que debe cumplir para la escritura de log en la base de datos
+            </summary>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.AuthenticationController.Authenticate(Inide.WebServices.Application.RequestModels.UserAuthenticationRequest)">
+            <summary>
+            Permite Generar un Json Web Token
+            </summary>
+            <param name="user">Usuario y Clave</param>
+             <returns>Token del usuario</returns>
+            <response code="200">Crea un Token JWT(Json Web Token)</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="422">Entidad no procesable, usuario y clave invalidos</response>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.Get">
+            <summary>
+            Obtiene un Listado de Entidades con sus codigos
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.GetElementos(System.Int64)">
+            <summary>
+            Obtiene un Listado de Elementos de la Entidaad
+            </summary>
+            <param name="id">Codigo de la entidad</param>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Get">
+            <summary>
+            Obtiene todos los eventos registrados
+            </summary>
+            <returns>Retorna un objeto del tipo EventoQueryResponse</returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Get(Inide.WebServices.Application.RequestModels.UrlQueryParameters)">
+            <summary>
+            Obtiene la lista de eventos paginada
+            </summary>
+            <param name="urlQueryParameters">Paginacion</param>
+            <returns>Retorna lista de eventos</returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Get(System.Int64)">
+            <summary>
+            Obtiene un evento en base al codigo del evento proporcionado
+            </summary>
+            <param name="codigo">Codigo del Evento</param>
+            <returns>Retorna un EventoQueryResponse</returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.GetItemList(System.Int64)">
+            <summary>
+            Contiene un listado de eventos filtrados
+            </summary>
+            <param name="categoria">Categoria de los eventos</param>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Post(Inide.WebServices.Application.RequestModels.CreateEventoRequest)">
+            <summary>
+            Crear un Evento
+            </summary>
+            <param name="createRequest">Evento a crear</param>
+            <returns>un apiresponse</returns>
+            <response code="201">Crea un nuevo evento</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="400">Si el evento es nulo</response>
+            <response code="422">Si los valores del evento son invalidos</response>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Put(System.Int64,Inide.WebServices.Application.RequestModels.UpdateEventoRequest)">
+            <summary>
+            Actualizar un Evento
+            </summary>
+            <param name="id">codigo del evento</param>
+            <param name="updateRequest">Evento actualizar</param>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Delete(System.Int64)">
+            <summary>
+            Quitar o borrar un elemento de la lista de eventos
+            </summary>
+            <param name="codigo">codigo del evento a borrar</param>
+            <returns>un Apiresponse</returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.SampleApiController.Post(Inide.WebServices.Application.RequestModels.SampleRequest)">
+            <summary>
+            Crea un simple objeto de tipo request
+            </summary>
+            <param name="createRequest">El request a crear</param>
+            <returns>Regresa un ApiResponse</returns>
+            <response code="201">Si un nuevo item ha sido creado retorna esto</response>
+            <response code="400">Si el item o elemento es nulo</response>
+            <response code="422">Si el modelo es invalido</response>
+        </member>
+        <member name="T:Inide.WebServices.Infrastructure.Configs.AppSettings">
+            <summary>
+            Se encarga de leer la configuracion del Appsettings.json
+            </summary>
+        </member>
+        <member name="T:Inide.WebServices.Infrastructure.Helpers.LogRecord">
+            <summary>
+            Tipo de datos que se envian al Log
+            </summary>
+        </member>
+        <member name="T:Inide.WebServices.Infrastructure.Helpers.StringHelper">
+            <summary>
+              This static class contains some helper functions that operate on <see cref="T:System.String"/> objects.</summary>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.IsEmptyOrNull(System.String)">
+            <summary>
+              <p>Returns true if <see cref="T:System.String"/> is <c>null</c> or empty (zero length)</p></summary>
+            <remarks>
+              <p>This function might be useful if an empty string is assumed to be <c>null</c>.</p>
+              <p>This is an extension method, so it can be called directly as <c>str.IsNullOrEmpty()</c>.</p></remarks>
+            <param name="str">
+              String.</param>
+            <returns>
+              If <paramref name="str"/> is <c>null</c> or empty, <c>true</c></returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.IsNullOrEmpty(System.String)">
+            <summary>
+              <p>Returns true if <see cref="T:System.String"/> is <c>null</c> or empty (zero length)</p></summary>
+            <remarks>
+              <p>This function might be useful if an empty string is assumed to be <c>null</c>.</p>
+              <p>This is an extension method, so it can be called directly as <c>str.IsNullOrEmpty()</c>.</p></remarks>
+            <param name="str">
+              String.</param>
+            <returns>
+              If <paramref name="str"/> is <c>null</c> or empty, <c>true</c></returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.IsTrimmedEmpty(System.String)">
+            <summary>
+              Checks if a string <see cref="T:System.String"/> is <c>null</c>, empty or just contains whitespace
+              characters.</summary>
+            <remarks>
+              <p><b>Warning:</b> "\n" (line end), "\t" (tab) and some other are also considered as whitespace). 
+              To see a list see <see cref="M:System.String.Trim" /> function.</p>
+              <p>This is an extension method, so it can be called directly as <c>str.IsTrimmedEmpty()</c>.</p></remarks>
+            <param name="str">
+              String.</param>
+            <returns>
+              If string is null, empty or contains only white space, <c>true</c></returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.TrimToNull(System.String)">
+            <summary>
+              <p>Removes whitespace characters in the left or right of the <see cref="T:System.String"/> string,
+              and if resulting string is empty or null, returns null.</p></summary>
+            <remarks>
+              <p>Generally, when a user entered string is going to be saved to database, if user entered an
+              empty string, <c>null</c> or a string of whitespaces, it is stored as <c>null</c>, otherwise
+              it is expected to remove whitespace at start and end only.</p>
+              <p><b>Warning:</b> "\n" (line end), "\t" (tab) and some other are also considered as whitespace). 
+              To see a list see <see cref="M:System.String.Trim" /> function.</p>
+              <p>This is an extension method, so it can be called directly as <c>str.TrimToNull()</c>.</p></remarks>
+            <param name="str">
+              String to be trimmed.</param>
+            <returns>
+              Trimmed string, result is null if empty.</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.TrimToEmpty(System.String)">
+            <summary>
+              <p>Removes whitespace characters in the left or right of the <see cref="T:System.String"/> string,
+              and if resulting string is empty or null, returns empty.</p></summary>
+            <remarks>
+              <p>Generally, when a user entered string is going to be saved to database, if user entered an
+              empty string, <c>null</c> or a string of whitespaces, it is stored as empty string, otherwise
+              it is expected to remove whitespace at start and end only.</p>
+              <p><b>Warning:</b> "\n" (line end), "\t" (tab) and some other are also considered as whitespace). 
+              To see a list see <see cref="M:System.String.Trim" /> function.</p>
+              <p>This is an extension method, so it can be called directly as <c>str.TrimToEmpty()</c>.</p></remarks>
+            <param name="str">
+              String to be trimmed.</param>
+            <returns>
+              Trimmed string (result won't be null).</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.IsTrimmedSame(System.String,System.String)">
+            <summary>
+              Compares two strings ignoring whitespace at the left or right.</summary>
+            <remarks>
+              <p><c>null</c> is considered to be empty.</p>
+              <p><b>Warning:</b> "\n" (line end), "\t" (tab) and some other are also considered as whitespace). 
+              To see a list see <see cref="M:System.String.Trim" /> function.</p>
+              <p>This function can be used to compare a string entered by user to the value in the database
+              for equality.</p></remarks>
+            <param name="string1">
+              String 1.</param>
+            <param name="string2">
+              String 2.</param>
+            <returns>
+              If two strings are same trimmed, true</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.ThreeDots(System.String,System.Int32)">
+            <summary>
+              If the string's length is over a specified limit, trims its right and adds three points ("...").</summary>
+            <remarks>
+              This is an extension method, so it can be called directly as <c>str.ThreeDots()</c>.</remarks> 
+            <param name="str">
+              String.</param>
+            <param name="maxLength">
+              Maksimum length for the resulting string. If given as 0, or <paramref name="str"/> is shorter
+              than this value, string returns as is. Otherwise <paramref name="str"/> 
+              it is trimmed to be under this limit in length including "the three dots".</param>
+            <returns>
+              <paramref name="str"/> itself, or trimmed and three dotted string</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.ToSingleLine(System.String)">
+            <summary>
+            Converts the string to single line by replacing line endings with space.
+            </summary>
+            <param name="str">The string.</param>
+            <returns>Single lined string.</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.ToSingleQuoted(System.String)">
+            <summary>
+            Converts the string to its single quoted representation.
+            </summary>
+            <param name="str">The string.</param>
+            <returns>Single quoted string.</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.QuoteString(System.String,System.Text.StringBuilder,System.Boolean)">
+            <summary>
+              Quotes a string</summary>
+            <param name="s">
+              String</param>
+            <param name="sb">
+              StringBuilder</param>
+            <param name="doubleQuote">
+              True to use double quotes</param>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.IsEmptyOrNull(System.Collections.ICollection)">
+            <summary>
+            Determines whether the collection is empty or null.
+            </summary>
+            <param name="collection">The collection.</param>
+            <returns>
+              <c>true</c> if the collection is empty or null; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.SafeSubstring(System.String,System.Int32,System.Int32)">
+            <summary>
+            A substring function that doesn't raise out of bound errors or null reference exception.
+            </summary>
+            <param name="value">The value.</param>
+            <param name="startIndex">The start index.</param>
+            <param name="maxLength">The maximum length.</param>
+            <returns>Substring or empty string.</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.SanitizeFilename(System.String)">
+            <summary>
+            Sanitizes the filename by replacing /, :, &amp;, ı characters.
+            </summary>
+            <param name="s">The string.</param>
+            <returns></returns>
+            <exception cref="T:System.ArgumentNullException">s is null</exception>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.RemoveDiacritics(System.String)">
+            <summary>
+            Removes the diacritic characters from string by replacing them with ASCII versions.
+            </summary>
+            <param name="s">The string.</param>
+            <returns>String with diacritics replaced.</returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.ToStringDefault``1(System.Nullable{``0},System.String,System.IFormatProvider,System.String)">
+            <summary>
+            Formats a nullable struct
+            </summary>
+            <param name="source"></param>
+            <param name="format">The format string 
+            If <c>null</c> use the default format defined for the type of the IFormattable implementation.</param>
+            <param name="provider">The format provider 
+            If <c>null</c> the default provider is used</param>
+            <param name="empty">The string to show when the source is <c>null</c>. 
+            If <c>null</c> an empty string is returned</param>
+            <returns>The formatted string or the default value if the source is <c>null</c></returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.ToStringDefault``1(``0,System.String,System.IFormatProvider,System.String)">
+            <summary>
+            Formats a nullable object
+            </summary>
+            <param name="source"></param>
+            <param name="format">The format string 
+            If <c>null</c> use the default format defined for the type of the IFormattable implementation.</param>
+            <param name="provider">The format provider 
+            If <c>null</c> the default provider is used</param>
+            <param name="empty">The string to show when the source is <c>null</c>. 
+            If <c>null</c> an empty string is returned</param>
+            <returns>The formatted string or the default value if the source is <c>null</c></returns>
+        </member>
+        <member name="M:Inide.WebServices.Infrastructure.Helpers.StringHelper.Join(System.String,System.String,System.String)">
+            <summary>
+            Joins two strings conditionally, by putting separator between if both are non empty
+            </summary>
+        </member>
+    </members>
+</doc>

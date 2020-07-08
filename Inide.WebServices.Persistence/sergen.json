@@ -1,0 +1,30 @@
+{
+  "RootNamespace": "Demo",
+  "ServerTypings": {
+    "Assemblies": [],
+    "LocalTexts": true
+  },
+  "Connections": [
+    {
+      "Key": "Northwind",
+      "Tables": [
+        {
+          "Tablename": "dbo.CustomerDetails",
+          "Identifier": "CustomerDetails",
+          "Module": "Prueba",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "dbo.Customers",
+          "Identifier": "Customers",
+          "Module": "Prueba",
+          "PermissionKey": "Administration:General"
+        }
+      ]
+    }
+  ],
+  "BaseRowClasses": [],
+  "RemoveForeignFields": [],
+  "CustomGenerate": {},
+  "CustomSettings": {}
+}
