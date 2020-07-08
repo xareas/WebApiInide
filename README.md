@@ -1,5 +1,5 @@
 # INIDE-SEN WEBSERVICES
-![Alt text](https://github.com/xareas/InideWebService/blob/master/images/bannerinide2020.png)
+![Alt text](https://github.com/xareas/WebApiInide/blob/master/images/bannerinide2020.png)
 
 Proyecto del Sistema Estadistico Nacional, contiene los servicios **rest** de intercambio de informacion.
 
