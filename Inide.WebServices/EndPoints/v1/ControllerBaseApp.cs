@@ -18,6 +18,7 @@ namespace Inide.WebServices.EndPoints.v1
 
     [Route("api/v1/[controller]")]
     [ApiController]
+    [Produces("application/json",new []{"text/xml"})]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiExplorerSettings(GroupName = "v1")]
     public abstract class ControllerBaseApp<T>: ControllerBase

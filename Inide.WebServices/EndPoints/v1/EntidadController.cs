@@ -28,7 +28,6 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<EntidadResponse>), Status200OK)]
         public async Task<IEnumerable<EntidadResponse>> Get()
         {
             return await SendAsync(_commands.GetAll);
@@ -39,9 +38,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="id">Codigo de la entidad</param>
         /// <returns></returns>
-        [Route("{id:long}/Elementos")]
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<EntidadResponse>), Status200OK)]
+        [Route("{id:long}/Elementos"),HttpGet]
         public async Task<IEnumerable<EntidadResponse>> GetElementos(long id)
         {
             return await SendAsync(_commands.GetAll);

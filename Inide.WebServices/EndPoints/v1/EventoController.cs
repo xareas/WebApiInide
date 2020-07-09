@@ -36,7 +36,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <returns>Retorna un objeto del tipo EventoQueryResponse</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<EventoResponse>), Status200OK)]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<IEnumerable<EventoResponse>> Get()
         {
            return await SendAsync(_commands.GetAll);
@@ -47,10 +47,8 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="urlQueryParameters">Paginacion</param>
         /// <returns>Retorna lista de eventos</returns>
-        [Route("paged")]
-        [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<EventoResponse>), Status200OK)]
-        public async Task<IEnumerable<EventoResponse>> Get([FromQuery] UrlQueryParameters urlQueryParameters)
+        [Route("paged"),HttpGet]
+         public async Task<IEnumerable<EventoResponse>> Get([FromQuery] UrlQueryParameters urlQueryParameters)
         {
             var command = _commands.GetPaged;
             command.Parameters = urlQueryParameters;
@@ -62,10 +60,14 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="codigo">Codigo del Evento</param>
         /// <returns>Retorna un EventoQueryResponse</returns>
-        [Route("{codigo:long}")]
-        [HttpGet]
-        [ProducesResponseType(typeof(EventoResponse), Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse),Status404NotFound)]
+        /// <response code="200">Solicitud Procesada Correctamente</response>
+        /// <response code="401">Acceso No Autorizado</response>
+        /// <response code="403">Acceso Prohibido</response>
+        /// <response code="400">Solicitud es Invalida</response>
+        /// <response code="404">Elemento no Encontrado</response>
+        /// <response code="422">Solicitud no contiene los valores correctos</response>
+        [Route("{codigo:long}"),HttpGet]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Find))]
         public async Task<EventoResponse> Get(long codigo)
         {
             var command = _commands.GetById;
@@ -80,9 +82,15 @@ namespace Inide.WebServices.EndPoints.v1
        /// </summary>
        /// <param name="categoria">Categoria de los eventos</param>
        /// <returns></returns>
+       /// <response code="200">Solicitud Procesada Correctamente</response>
+       /// <response code="401">Acceso No Autorizado</response>
+       /// <response code="403">Acceso Prohibido</response>
+       /// <response code="400">Solicitud es Invalida</response>
+       /// <response code="404">Elemento no Encontrado</response>
+       /// <response code="422">Solicitud no contiene los valores correctos</response>
         [HttpGet,Route("[action]/{categoria:long}")]
-        [ProducesResponseType(typeof(ApiResponse), Status200OK)]
-        public async Task<ListResponse<Evento>> GetItemList(long categoria)
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Find))]
+        public async Task<IEnumerable<Evento>> GetFilter(long categoria)
         {
             var command = _commands.GetCategory;
             command.Categoria = categoria;
@@ -96,19 +104,15 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="createRequest">Evento a crear</param>
         /// <returns>un apiresponse</returns>
-        /// <response code="201">Crea un nuevo evento</response>
+        /// <response code="201">Solicitud Procesada Correctamente</response>
         /// <response code="401">Acceso No Autorizado</response>
         /// <response code="403">Acceso Prohibido</response>
-        /// <response code="400">Si el evento es nulo</response>
-        /// <response code="422">Si los valores del evento son invalidos</response>
+        /// <response code="400">Solicitud es Invalida</response>
+        /// <response code="404">Elemento no Encontrado</response>
+        /// <response code="422">Solicitud no contiene los valores correctos</response>
         [HttpPost,ValidationFilter]
-        //[ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Post))]
-        [ProducesResponseType(typeof(ApiResponse), Status201Created)]
-        [ProducesResponseType(typeof(ApiResponse), Status401Unauthorized)]
-        [ProducesResponseType(typeof(ApiResponse), Status403Forbidden)]
-        [ProducesResponseType(typeof(ApiResponse), Status400BadRequest)]
-        [ProducesResponseType(typeof(ApiResponse), Status422UnprocessableEntity)]
-        public async Task<ApiResponse> Post([FromBody] CreateEventoRequest createRequest)
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
+         public async Task<ApiResponse> Post([FromBody] CreateEventoRequest createRequest)
         {
             var command = _commands.Post;
             command.NewEntity = createRequest;
@@ -124,11 +128,14 @@ namespace Inide.WebServices.EndPoints.v1
         /// <param name="id">codigo del evento</param>
         /// <param name="updateRequest">Evento actualizar</param>
         /// <returns></returns>
-        [Route("{id:long}")]
-        [HttpPut,ValidationFilter]
-        [ProducesResponseType(typeof(ApiResponse), Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), Status404NotFound)]
-        [ProducesResponseType(typeof(ApiResponse), Status422UnprocessableEntity)]
+        /// <response code="204">Solicitud Procesada Correctamente</response>
+        /// <response code="401">Acceso No Autorizado</response>
+        /// <response code="403">Acceso Prohibido</response>
+        /// <response code="400">Solicitud es Invalida</response>
+        /// <response code="404">Elemento no Encontrado</response>
+        /// <response code="422">Solicitud no contiene los valores correctos</response>
+       [Route("{id:long}"),HttpPut,ValidationFilter]
+       [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Update))]
         public async Task<ApiResponse> Put(long id, [FromBody] UpdateEventoRequest updateRequest)
         {
 
@@ -145,10 +152,14 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="codigo">codigo del evento a borrar</param>
         /// <returns>un Apiresponse</returns>
-        [Route("{codigo:long}")]
-        [HttpDelete]
-        [ProducesResponseType(typeof(ApiResponse), Status200OK)]
-        [ProducesResponseType(typeof(ApiResponse), Status404NotFound)]
+        /// <response code="200">Solicitud Procesada Correctamente</response>
+        /// <response code="401">Acceso No Autorizado</response>
+        /// <response code="403">Acceso Prohibido</response>
+        /// <response code="400">Solicitud es Invalida</response>
+        /// <response code="404">Elemento no Encontrado</response>
+        /// <response code="422">Solicitud no contiene los valores correctos</response>
+        [Route("{codigo:long}"),HttpDelete]
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Delete))]
         public async Task<ApiResponse> Delete(long codigo)
         {
             var command = _commands.Delete;

@@ -16,7 +16,6 @@ namespace Inide.WebServices.EndPoints.v1
 {
 
    [Route("authentication")]
-   
    public class AuthenticationController: ControllerBaseApp<AuthenticationController>
    {
         private readonly IAuthenticationManager _authentication;
@@ -37,6 +36,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// <response code="422">Entidad no procesable, usuario y clave invalidos</response>
         [HttpPost("api/login")]
         [AllowAnonymous,ValidationFilter]
+       // [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationRequest user)
         {
             if (!await _authentication.ValidateUserAsync(user.UserName, user.Password)) 

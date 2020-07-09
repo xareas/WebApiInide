@@ -70,13 +70,25 @@
             </summary>
             <param name="codigo">Codigo del Evento</param>
             <returns>Retorna un EventoQueryResponse</returns>
+            <response code="200">Solicitud Procesada Correctamente</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="400">Solicitud es Invalida</response>
+            <response code="404">Elemento no Encontrado</response>
+            <response code="422">Solicitud no contiene los valores correctos</response>
         </member>
-        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.GetItemList(System.Int64)">
+        <member name="M:Inide.WebServices.EndPoints.v1.EventoController.GetFilter(System.Int64)">
             <summary>
             Contiene un listado de eventos filtrados
             </summary>
             <param name="categoria">Categoria de los eventos</param>
             <returns></returns>
+            <response code="200">Solicitud Procesada Correctamente</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="400">Solicitud es Invalida</response>
+            <response code="404">Elemento no Encontrado</response>
+            <response code="422">Solicitud no contiene los valores correctos</response>
         </member>
         <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Post(Inide.WebServices.Application.RequestModels.CreateEventoRequest)">
             <summary>
@@ -84,11 +96,12 @@
             </summary>
             <param name="createRequest">Evento a crear</param>
             <returns>un apiresponse</returns>
-            <response code="201">Crea un nuevo evento</response>
+            <response code="201">Solicitud Procesada Correctamente</response>
             <response code="401">Acceso No Autorizado</response>
             <response code="403">Acceso Prohibido</response>
-            <response code="400">Si el evento es nulo</response>
-            <response code="422">Si los valores del evento son invalidos</response>
+            <response code="400">Solicitud es Invalida</response>
+            <response code="404">Elemento no Encontrado</response>
+            <response code="422">Solicitud no contiene los valores correctos</response>
         </member>
         <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Put(System.Int64,Inide.WebServices.Application.RequestModels.UpdateEventoRequest)">
             <summary>
@@ -97,6 +110,12 @@
             <param name="id">codigo del evento</param>
             <param name="updateRequest">Evento actualizar</param>
             <returns></returns>
+            <response code="204">Solicitud Procesada Correctamente</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="400">Solicitud es Invalida</response>
+            <response code="404">Elemento no Encontrado</response>
+            <response code="422">Solicitud no contiene los valores correctos</response>
         </member>
         <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Delete(System.Int64)">
             <summary>
@@ -104,6 +123,12 @@
             </summary>
             <param name="codigo">codigo del evento a borrar</param>
             <returns>un Apiresponse</returns>
+            <response code="200">Solicitud Procesada Correctamente</response>
+            <response code="401">Acceso No Autorizado</response>
+            <response code="403">Acceso Prohibido</response>
+            <response code="400">Solicitud es Invalida</response>
+            <response code="404">Elemento no Encontrado</response>
+            <response code="422">Solicitud no contiene los valores correctos</response>
         </member>
         <member name="M:Inide.WebServices.EndPoints.v1.SampleApiController.Post(Inide.WebServices.Application.RequestModels.SampleRequest)">
             <summary>
