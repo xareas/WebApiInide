@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Inide.WebServices.Application.ResponseModels;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Inide.WebServices.Application.Handlers.Entidades;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using static Microsoft.AspNetCore.Http.StatusCodes;
-using ILogger = Serilog.ILogger;
 
 namespace Inide.WebServices.EndPoints.v1
 {
@@ -27,7 +24,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// Obtiene un Listado de Entidades con sus codigos
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
+        [HttpGet,Authorize()]
         public async Task<IEnumerable<EntidadResponse>> Get()
         {
             return await SendAsync(_commands.GetAll);

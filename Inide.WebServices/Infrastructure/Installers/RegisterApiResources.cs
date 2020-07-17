@@ -38,14 +38,14 @@ namespace Inide.WebServices.Infrastructure.Installers
 
             var noOpPolicy = Policy.NoOpAsync().AsAsyncPolicy<HttpResponseMessage>();
 
-            /*todo: revisar esto
+            
               //Registrar el Handler para Bearer Token. 
               services.AddTransient<ProtectedApiBearerTokenHandler>();
             
              //Info: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0
-             services.AddHttpClient<IApiConnect, SampleApiConnect>(client =>
+             services.AddHttpClient<IApiConnect, InideApiConnect>(client =>
             {
-                client.BaseAddress = new Uri(config["ApiResourceBaseUrls:SampleApi"]);
+                client.BaseAddress = new Uri(config["ApiResourceBaseUrls:InideApi"]);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(HttpContentMediaTypes.JSON));
             })
@@ -56,8 +56,8 @@ namespace Inide.WebServices.Infrastructure.Installers
             .AddPolicyHandler(circuitBreakerPolicy);
 
             //Seguridad en AuthService 
-            services.AddHttpClient<IAuthServerConnect, AuthServerConnect>();
-           */
+          services.AddHttpClient<IAuthServerConnect, AuthServerConnect>();
+           
             // Cache
             services.AddSingleton<IDiscoveryCache>(r =>
             {

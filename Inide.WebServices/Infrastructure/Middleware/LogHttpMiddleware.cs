@@ -32,7 +32,7 @@ namespace  Inide.WebServices.Infrastructure.MiddleWare
             _logger = loggerFactory.CreateLogger<RequestResponseLoggingMiddleware>();
             _configuration = configuration;
             _record = record;
-            var connectionString = _configuration.GetConnectionString(AppWebService.DefaultDb);
+            var connectionString = _configuration.GetConnectionString(AppConst.DefaultDb);
             _writer = new SqlServerLogWriter(connectionString);
         }
 

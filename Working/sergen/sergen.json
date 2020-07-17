@@ -5,7 +5,23 @@
     "LocalTexts": true
   },
   "Connections": [
-   
+    {
+      "Key": "Inide",
+      "Tables": [
+        {
+          "Tablename": "Admon.Users",
+          "Identifier": "Users",
+          "Module": "Inide",
+          "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "Core.Elemento",
+          "Identifier": "Elemento",
+          "Module": "Inide",
+          "PermissionKey": "Administration:General"
+        }
+      ]
+    }
   ],
   "BaseRowClasses": [],
   "RemoveForeignFields": [],

@@ -3,30 +3,40 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
+using Dapper.Contrib.Extensions;
 using Inide.WebServices.Persistence.Common;
 using Inide.WebServices.Persistence.Contracts;
 using Inide.WebServices.Persistence.Domain;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Serenity.Data;
+using Serenity.Services;
+using MyRow = Inide.WebServices.Persistence.Domain.UserDefinition;
 
 namespace Inide.WebServices.Persistence.Repository
 {
     
-    public class UserRepository: DbFactoryBase,IUserRepository
+    public class UserRepository: Repository<MyRow>, IUserRepository<MyRow>
     {
-        private const string Schema = "[Admon]";
-        private const string Table = "[Users]";
-        private const string PrimaryKey = "UserId";
-        public string sqlGetUser { get; } =  $@"SELECT {UserDefinition.FieldsList()} FROM {Schema}.{Table} WHERE UserName = @userName And IsActive=1";
-        
-        public UserRepository(IConfiguration config) : base(config)
+        private static MyRow.RowFields fld =>MyRow.Fields;
+        private readonly IDbConnection _connection;
+        public UserRepository(IDbConnection connection)
         {
             
+            _connection = connection;
+            
         }
-
-        public async Task<UserDefinition> GetUserAsync(string userName)
+        
+        public async Task<MyRow> GetUserAsync(string userName)
         {
-            return await DbQuerySingleAsync<UserDefinition>(sqlGetUser, new { userName });
+            //Request de Filtrado
+            var requestList = new ListRequest
+            {
+                EqualityFilter = new Dictionary<string, object> {{UserDefinition.Fields.UserName.Name, userName}}
+            };
+            
+            var users = await ListAsync(_connection, requestList);
+            return users.TotalCount == 0 ? null : users.Entities[0];
         }
-
     }
 }

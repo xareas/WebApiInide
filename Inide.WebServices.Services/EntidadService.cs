@@ -10,8 +10,8 @@ namespace Inide.WebServices.Services
 {
     public class EntidadService : EntidadRepository,IEntidadService
     {
-        private IConfiguration _config;
-        private ILogger _logger;
+        private readonly IConfiguration _config;
+        private readonly ILogger _logger;
 
 
         public EntidadService(IConfiguration config,ILogger<EventoService> logger) 
@@ -20,17 +20,6 @@ namespace Inide.WebServices.Services
             _logger = logger;
         }
 
-        //Metodos Propios de la entidadService
-        IConfiguration IServiceBase.Config
-        {
-            get => _config;
-            set => _config = value;
-        }
-
-        ILogger IServiceBase.Logger
-        {
-            get => _logger;
-            set => _logger = value;
-        }
+       
     }
 }

@@ -8,7 +8,7 @@ using Serenity.Data.Mapping;
 
 namespace Inide.WebServices.Persistence.Domain
 {
-    [ConnectionKey(ConfigPersistence.DefaultDb),TableName("[Capa].[Evento]")]
+    [TwoLevelCached(new []{"Swap.Evento"}),ConnectionKey(ConfigPersistence.DefaultDb),TableName("[Swap].[Evento]")]
     public class Evento : Row,IIdRow, INameRow
     {
         public static readonly RowFields Fields = new RowFields().Init();
@@ -34,7 +34,7 @@ namespace Inide.WebServices.Persistence.Domain
         public IIdField IdField => Fields.KeyEvento;
         public StringField NameField => Fields.Nombre;
 
-        public partial class RowFields : RowFieldsBase
+        public  class RowFields : RowFieldsBase
         {
             public Int32Field KeyEvento;
 

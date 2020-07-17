@@ -13,6 +13,5 @@ namespace Inide.WebServices.Services.Contracts
         //Aca definir tus propios metodos
         public Task<bool> ExecuteWithTransactionScope();
 
-
     }
 }

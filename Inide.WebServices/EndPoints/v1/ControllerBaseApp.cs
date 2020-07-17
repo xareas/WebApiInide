@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+﻿using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Inide.WebServices.Constants;
@@ -10,12 +7,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Serilog;
 
 namespace Inide.WebServices.EndPoints.v1
 {
 
+   
     [Route("api/v1/[controller]")]
     [ApiController]
     [Produces("application/json",new []{"text/xml"})]
@@ -39,7 +35,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         private static void SetCulture()
         {
-           var culture = CultureInfo.GetCultureInfo(AppWebService.DefaultCulture);
+            var culture = CultureInfo.GetCultureInfo(AppConst.DefaultCulture);
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
         }

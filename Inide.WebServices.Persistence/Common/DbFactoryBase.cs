@@ -13,12 +13,12 @@ namespace Inide.WebServices.Persistence.Common
     public abstract class DbFactoryBase
     {
        
-         private readonly IConfiguration _config;
-       
+        private readonly IConfiguration _config;
+        
         private  string DbConnectionString => _config.GetConnectionString(ConfigPersistence.DefaultDb);
         private IDbConnection DbConnection => new SqlConnection(DbConnectionString);
 
-        public DbFactoryBase(IConfiguration config)
+        protected DbFactoryBase(IConfiguration config)
         {
             _config = config;
             

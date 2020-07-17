@@ -10,7 +10,7 @@ namespace Inide.WebServices.Contracts
     public interface IAuthenticationManager
     {
         Task<bool> ValidateUserAsync(string username, string password);
-        Task<UserDefinition> GetUserByNameAsync(string userName);
-        Task<string> CreateTokenAsync(IUserDefinition user);
+        Task<UserDefinition> GetUserDefinitionAsync(string userName);
+        Task<string> GetTokenAuthenticateAsync(IUserDefinition user);
     }
 }

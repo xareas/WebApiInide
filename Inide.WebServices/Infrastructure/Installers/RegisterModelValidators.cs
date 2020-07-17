@@ -17,7 +17,7 @@ namespace Inide.WebServices.Infrastructure.Installers
             services.AddTransient<IValidator<UserAuthenticationRequest>, UserAuthenticationRequestValidator>();
 
 
-            //Desahabilitar el estado de validacion que trae ASP.NET Core
+            //Desabilitamos badrequest para devolver unprocesable entity - 117
             services.Configure<ApiBehaviorOptions>(opt => { opt.SuppressModelStateInvalidFilter = true; });
         }
     }

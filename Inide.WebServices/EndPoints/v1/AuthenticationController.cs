@@ -15,7 +15,7 @@ using Microsoft.Extensions.Logging;
 namespace Inide.WebServices.EndPoints.v1
 {
 
-   [Route("authentication")]
+   [Route("/api/authentication")]
    public class AuthenticationController: ControllerBaseApp<AuthenticationController>
    {
         private readonly IAuthenticationManager _authentication;
@@ -34,7 +34,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// <response code="401">Acceso No Autorizado</response>
         /// <response code="403">Acceso Prohibido</response>
         /// <response code="422">Entidad no procesable, usuario y clave invalidos</response>
-        [HttpPost("api/login")]
+        [HttpPost("login")]
         [AllowAnonymous,ValidationFilter]
        // [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationRequest user)
@@ -42,8 +42,9 @@ namespace Inide.WebServices.EndPoints.v1
             if (!await _authentication.ValidateUserAsync(user.UserName, user.Password)) 
                 return Unauthorized();
 
-            var userDefinition = await _authentication.GetUserByNameAsync(user.UserName);
-            return Ok(new {Token = await _authentication.CreateTokenAsync(userDefinition)});
+            
+            var userDefinition = await _authentication.GetUserDefinitionAsync(user.UserName);
+            return Ok(new {Token = await _authentication.GetTokenAuthenticateAsync(userDefinition)});
 
         }
 

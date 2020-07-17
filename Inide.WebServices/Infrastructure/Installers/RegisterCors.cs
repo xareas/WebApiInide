@@ -14,7 +14,7 @@ namespace Inide.WebServices.Infrastructure.Installers
             //https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-3.0
             services.AddCors(options =>
             {
-                options.AddPolicy(AppWebService.AllowAllPolicy,
+                options.AddPolicy(AppConst.AllowAllPolicy,
                 builder =>
                 {
                     builder.AllowAnyOrigin()

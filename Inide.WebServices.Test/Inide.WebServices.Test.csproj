@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="Flurl.Http" Version="2.4.2" />
-    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="3.1.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.6.1" />
     <PackageReference Include="Moq" Version="4.14.5" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
@@ -37,6 +37,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Inide.WebServices.Persistence\Inide.WebServices.Persistence.csproj" />
     <ProjectReference Include="..\Inide.WebServices\Inide.WebServices.csproj" />
   </ItemGroup>
 

@@ -10,12 +10,14 @@ namespace Inide.WebServices.Infrastructure.Extensions
     {
         public static void AddServicesInAssembly(this IServiceCollection services, IConfiguration configuration)
         {
+            //Buscamos las clases que implementan la interfaz IServiceRegistration
             var appServices = typeof(Startup).Assembly.DefinedTypes
                             .Where(x => typeof(IServiceRegistration)
                             .IsAssignableFrom(x) && !x.IsInterface && !x.IsAbstract)
                             .Select(Activator.CreateInstance)
                             .Cast<IServiceRegistration>().ToList();
-
+            
+            //Invocando mediante reflexion
             appServices.ForEach(svc => svc.RegisterAppServices(services, configuration));
         }
     }

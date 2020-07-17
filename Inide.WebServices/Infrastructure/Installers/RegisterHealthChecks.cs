@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using System;
 using Inide.WebServices.Constants;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Inide.WebServices.Infrastructure.Installers
 {
@@ -12,26 +14,27 @@ namespace Inide.WebServices.Infrastructure.Installers
     {
         public void RegisterAppServices(IServiceCollection services, IConfiguration config)
         {
+            return;
+              var url = new Uri(config["ApiResourceBaseUrls:InideApi"]).ToString();
             //Register HealthChecks and UI
             services.AddHealthChecks()
-                    .AddCheck("Google Ping", new PingHealthCheck("www.google.com", 100))
-                    .AddCheck("Bing Ping", new PingHealthCheck("www.bing.com", 100))
-                    .AddUrlGroup(new Uri(config["ApiResourceBaseUrls:AuthServer"]),
-                                name: "Auth Server",
+                .AddCheck("Sitio Inide", new PingHealthCheck("www.inide.gob.ni", 200))
+                .AddCheck("Sitio Api", new PingHealthCheck(url,timeout:200))
+              //  .AddCheck("Google Ping", new PingHealthCheck("www.google.com", TIMEOUT))
+                .AddUrlGroup(new Uri(config["ApiResourceBaseUrls:InideApi"]),
+                                name: "Api Inide",
                                 failureStatus: HealthStatus.Degraded)
                     
-                    .AddUrlGroup(new Uri(config["ApiResourceBaseUrls:SampleApi"]),
-                                name: "External Api",
-                                failureStatus: HealthStatus.Degraded)
-                    
-                    .AddSqlServer(connectionString: config[$"ConnectionStrings:{AppWebService.DefaultDb}"],
+                    .AddSqlServer(connectionString: config[$"ConnectionStrings:{AppConst.DefaultDb}"],
                                 healthQuery: "SELECT 1;",
                                 name: "SQL",
                                 failureStatus: HealthStatus.Degraded,
                                 tags: new string[] { "db", "sql", "sqlserver" });
 
-                    services.AddHealthChecksUI()
-                        .AddSqlServerStorage(config.GetConnectionString(AppWebService.DefaultDb));
+            services.AddHealthChecksUI(opt =>
+            {  }).AddSqlServerStorage(config.GetConnectionString(AppConst.DefaultDb), op =>
+            {
+             });
 
         }
     }

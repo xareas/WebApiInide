@@ -8,7 +8,6 @@ namespace Inide.WebServices.Services.Contracts
 {
     public interface IServiceBase
     {
-        protected IConfiguration Config { get; set; }
-        protected ILogger Logger { get; set; }
+       
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Threading.Tasks;
-using Inide.WebServices.Persistence.Common;
+using Inide.WebServices.Persistence.Contracts;
 using Serenity.Data;
 using Serenity.Services;
 

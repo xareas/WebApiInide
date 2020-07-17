@@ -10,5 +10,6 @@ namespace Inide.WebServices.Persistence.Contracts
     {
         public IEventoRepository<Evento> EventoRepository { get; }
         public IEntidadRepository<Entidad> EntidadRepository { get; }
+
     }
 }

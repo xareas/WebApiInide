@@ -11,7 +11,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inide.WebServices.Persisten
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inide.WebServices.Services", "Inide.WebServices.Services\Inide.WebServices.Services.csproj", "{9E45FCBD-4FE1-4FBB-9537-4A0B5AF77A20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inide.WebServices.Application", "Inide.WebServices.Application\Inide.WebServices.Application.csproj", "{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inide.WebServices.Application", "Inide.WebServices.Application\Inide.WebServices.Application.csproj", "{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inide.WebServices.PersistenceTests", "Inide.WebServices.PersistenceTests\Inide.WebServices.PersistenceTests.csproj", "{578DFD6C-E86A-4285-9216-8B3B82125F64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inide.WebServices.ServicesTests", "Inide.WebServices.ServicesTests\Inide.WebServices.ServicesTests.csproj", "{F23FF910-19A8-425E-A605-35C2F318001C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{553BE6E2-37B0-446B-BB0B-6FA2E98B1198}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{0A0DCECC-6D48-4043-B54E-E26028708197}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inide.WebServices.ApplicationTests", "Inide.WebServices.ApplicationTests\Inide.WebServices.ApplicationTests.csproj", "{3202E92F-B5EB-4EF4-937E-48B52C164D56}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,9 +49,31 @@ Global
 		{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770}.Release|Any CPU.Build.0 = Release|Any CPU
+		{578DFD6C-E86A-4285-9216-8B3B82125F64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{578DFD6C-E86A-4285-9216-8B3B82125F64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{578DFD6C-E86A-4285-9216-8B3B82125F64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{578DFD6C-E86A-4285-9216-8B3B82125F64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F23FF910-19A8-425E-A605-35C2F318001C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F23FF910-19A8-425E-A605-35C2F318001C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F23FF910-19A8-425E-A605-35C2F318001C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F23FF910-19A8-425E-A605-35C2F318001C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3202E92F-B5EB-4EF4-937E-48B52C164D56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3202E92F-B5EB-4EF4-937E-48B52C164D56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3202E92F-B5EB-4EF4-937E-48B52C164D56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3202E92F-B5EB-4EF4-937E-48B52C164D56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{334FC2D5-A1AC-45A6-9A86-881C115C2462} = {553BE6E2-37B0-446B-BB0B-6FA2E98B1198}
+		{D34D07BD-B2B1-4F63-9559-7794B68103E4} = {0A0DCECC-6D48-4043-B54E-E26028708197}
+		{D2895BF5-938D-402B-97BD-2375ED333872} = {553BE6E2-37B0-446B-BB0B-6FA2E98B1198}
+		{9E45FCBD-4FE1-4FBB-9537-4A0B5AF77A20} = {553BE6E2-37B0-446B-BB0B-6FA2E98B1198}
+		{D1A522BE-4AAD-4A99-B9A8-E1CB2FB05770} = {553BE6E2-37B0-446B-BB0B-6FA2E98B1198}
+		{578DFD6C-E86A-4285-9216-8B3B82125F64} = {0A0DCECC-6D48-4043-B54E-E26028708197}
+		{F23FF910-19A8-425E-A605-35C2F318001C} = {0A0DCECC-6D48-4043-B54E-E26028708197}
+		{3202E92F-B5EB-4EF4-937E-48B52C164D56} = {0A0DCECC-6D48-4043-B54E-E26028708197}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {481566D1-B198-434F-ABDF-7A25B63EB211}

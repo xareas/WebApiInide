@@ -25,12 +25,12 @@ namespace Inide.WebServices.Infrastructure.HealthChecks
                     var reply = await ping.SendPingAsync(_host, _timeout);
                     if (reply.Status != IPStatus.Success)
                     {
-                        return HealthCheckResult.Unhealthy($"Ping check status [{ reply.Status }]. Host {_host} did not respond within {_timeout} ms.");
+                        return HealthCheckResult.Unhealthy($"Ping chequeo status [{ reply.Status }]. Host {_host} no responde dentro de {_timeout} ms.");
                     }
 
                     if (reply.RoundtripTime >= _timeout)
                     {
-                        return HealthCheckResult.Degraded($"Ping check for {_host} takes too long to respond. Expected {_timeout} ms but responded in {reply.RoundtripTime} ms.");
+                        return HealthCheckResult.Degraded($"Ping para {_host} toma demasiado tiempo en responder. Deberia responder en {_timeout} ms pero responde en {reply.RoundtripTime} ms.");
                     }
 
                     return HealthCheckResult.Healthy($"Ping al host  {_host} esta bien.");

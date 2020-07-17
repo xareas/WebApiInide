@@ -339,5 +339,25 @@
             Joins two strings conditionally, by putting separator between if both are non empty
             </summary>
         </member>
+        <member name="M:Inide.WebServices.Security.TokenManager.GenerateAccessToken(Inide.WebServices.Persistence.Contracts.IUserDefinition)">
+            <summary>
+            Generar el token de acceso
+            </summary>
+            <param name="user">perfil del usuario</param>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.Security.TokenManager.GenerateRefreshToken">
+            <summary>
+            Generar el token de refrescamiento
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.Security.TokenManager.GetPrincipalFromExpiredToken(System.String)">
+            <summary>
+            El principal
+            </summary>
+            <param name="token"></param>
+            <returns></returns>
+        </member>
     </members>
 </doc>

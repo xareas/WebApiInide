@@ -12,25 +12,30 @@ using Inide.WebServices.Infrastructure.Configs;
 using Inide.WebServices.Infrastructure.Helpers;
 using Inide.WebServices.Persistence.Contracts;
 using Inide.WebServices.Persistence.Domain;
+using Inide.WebServices.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Microsoft.IdentityModel.Tokens;
-using JwtRegisteredClaimNames = System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames;
 
 namespace Inide.WebServices.Security
 {
     public class AuthenticationManager : IAuthenticationManager
     {
-        private readonly IUserRepository _repository;
+        private readonly IUserService _service;
         private readonly AppSettings _settings;
         private readonly ISet<RefreshToken> _refreshTokens = new HashSet<RefreshToken>();
         private readonly IJwtHandler _jwtHandler;
+        private readonly ITokenManager _tokenManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private UserDefinition CurrentUserDefinition { get; set; }
+        private  HttpContext Context => _httpContextAccessor.HttpContext;
 
-        public AuthenticationManager(IOptions<AppSettings> settings, IJwtHandler jwtHandler, IUserRepository repository)
+        public AuthenticationManager(IOptions<AppSettings> settings,ITokenManager tokenManager, 
+            IJwtHandler jwtHandler, IUserService service,IHttpContextAccessor httpContextAccessor)
         {
-            _repository = repository;
+            _service = service;
             _settings = settings.Value;
             _jwtHandler = jwtHandler;
+            _tokenManager = tokenManager;
         }
 
         public async Task<bool> ValidateUserAsync(string username, string password)
@@ -38,7 +43,7 @@ namespace Inide.WebServices.Security
             if (username.IsTrimmedEmpty() || string.IsNullOrEmpty(password))
                 return false;
             username = username.TrimToEmpty();
-            var user = await GetUserByNameAsync(username);
+            var user = await GetUserDefinitionAsync((username));
 
             bool ValidatePassword() => CalculateHash(password, user.PasswordSalt)
                     .Equals(user.PasswordHash, StringComparison.OrdinalIgnoreCase);
@@ -46,36 +51,38 @@ namespace Inide.WebServices.Security
             return user != null && ValidatePassword();
         }
 
-        public async Task<UserDefinition> GetUserByNameAsync(string userName)
+        public async Task<UserDefinition> GetUserDefinitionAsync(string userName)
         {
-            return await _repository.GetUserAsync(userName);
+            if (CurrentUserDefinition != null) return CurrentUserDefinition;
+            
+            CurrentUserDefinition = await _service.GetUserAsync(userName);
+            return CurrentUserDefinition;
+
         }
 
-        public async Task<string> CreateTokenAsync(IUserDefinition user)
+        public async Task<bool> IsAuthenticated()
         {
-             var claims = new[]
-                {
-                    new Claim(JwtRegisteredClaimNames.Jti, user.UserId.ToString()),
-                    new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                    new Claim(JwtClaimsApp.Institucion, user.KeyDelegacion.ToString())
-                };
+           return await Task.Run(() => Context.User.Identity.IsAuthenticated);
+        }
 
-               var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_settings.SecretKey));
-                var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        public async Task<UserDefinition> CurrentUser()
+        {
+            if (CurrentUserDefinition != null) return CurrentUserDefinition;
+            if (!await IsAuthenticated()) return null;
+            return await GetUserDefinitionAsync(Context.User.Identity.Name);
+        }
 
-                //Parametros del Token que se genera
-                var tokenOptions = new JwtSecurityToken(_settings.ValidIssuer, _settings.ValidAudience,
-                    claims, expires: DateTime.Now.AddMinutes(_settings.ExpiresMinutes), signingCredentials: credentials);
-                return await Task.Run(() => new  JwtSecurityTokenHandler().WriteToken(tokenOptions) );
-               
+        public async Task<string> GetTokenAuthenticateAsync(IUserDefinition user)
+        {
+            return  await _tokenManager.GenerateAccessToken(user);
         }
 
         private static string CalculateHash(string password, string salt)
         {
-            return SiteMembershipProvider.ComputeSHA512(password + salt);
+            var hash = SiteMembershipProvider.ComputeSHA512(password + salt);
+            return hash;
         }
-
+        
         public void RevokeRefreshToken(string token)
         {
             var refreshToken = GetRefreshToken(token);
@@ -106,9 +113,7 @@ namespace Inide.WebServices.Security
 
             return jwt;
         }
-
-
-
+        
         private RefreshToken GetRefreshToken(string token)
             => _refreshTokens.SingleOrDefault(x => x.Token == token);
 

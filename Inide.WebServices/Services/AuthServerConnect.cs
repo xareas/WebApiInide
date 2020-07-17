@@ -28,7 +28,7 @@ namespace Inide.WebServices.Services
             if (endPointDiscovery.IsError)
             {
                 _logger.Log(LogLevel.Error, $"ErrorType: {endPointDiscovery.ErrorType} Error: {endPointDiscovery.Error}");
-                throw new HttpRequestException("Something went wrong while connecting to the AuthServer Token Endpoint.");
+                throw new HttpRequestException("Algo No funciono al conectarse al AuthServer Token Endpoint.");
             }
 
             var tokenResponse = await _httpClient.RequestClientCredentialsTokenAsync(new ClientCredentialsTokenRequest

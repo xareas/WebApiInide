@@ -1,8 +1,7 @@
-﻿using System;
-using AutoWrapper.Wrappers;
+﻿using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Net.Mime;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Inide.WebServices.Application.Handlers.Eventos;
 using Inide.WebServices.Application.RequestModels;
@@ -10,12 +9,8 @@ using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Infrastructure.Filters;
 using Inide.WebServices.Persistence.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
-using Serenity.Services;
-using static Microsoft.AspNetCore.Http.StatusCodes;
-using ILogger = Serilog.ILogger;
+
 
 namespace Inide.WebServices.EndPoints.v1
 {
@@ -39,6 +34,7 @@ namespace Inide.WebServices.EndPoints.v1
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<IEnumerable<EventoResponse>> Get()
         {
+            var x = this.User;
            return await SendAsync(_commands.GetAll);
         }
 
@@ -50,6 +46,7 @@ namespace Inide.WebServices.EndPoints.v1
         [Route("paged"),HttpGet]
          public async Task<IEnumerable<EventoResponse>> Get([FromQuery] UrlQueryParameters urlQueryParameters)
         {
+            Logger.LogInformation("Cargando los datos");
             var command = _commands.GetPaged;
             command.Parameters = urlQueryParameters;
             return await SendAsync(command);
@@ -114,6 +111,7 @@ namespace Inide.WebServices.EndPoints.v1
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Create))]
          public async Task<ApiResponse> Post([FromBody] CreateEventoRequest createRequest)
         {
+
             var command = _commands.Post;
             command.NewEntity = createRequest;
             

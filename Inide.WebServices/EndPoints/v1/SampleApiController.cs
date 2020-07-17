@@ -8,30 +8,30 @@ using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Persistence.Common;
 using Inide.WebServices.Security;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Serenity.Services;
 using static Microsoft.AspNetCore.Http.StatusCodes;
 
 namespace Inide.WebServices.EndPoints.v1
 {
     [Route("api/v1/[controller]")]
-    [ApiController,AllowAnonymous]
+    [ApiController]
+    [Produces("application/json",new []{"text/xml"})]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [ApiExplorerSettings(GroupName = "v1")]
-    
-    public class SampleApiController : ControllerBase
+   public class SampleApiController : ControllerBase
     {
         private readonly ILogger<SampleApiController> _logger;
         private readonly IApiConnect _sampleApiConnect;
         private readonly IAuthenticationManager _auth;
-        public SampleApiController(IAuthenticationManager auth,IApiConnect sampleApiConnect, ILogger<SampleApiController> logger)
+        public SampleApiController(IAuthenticationManager auth,IApiConnect sampleApiConnect, ILogger<SampleApiController> logger) 
         {
             _sampleApiConnect = sampleApiConnect;
             _logger = logger;
             _auth = auth;
-
-            
+          
         }
 
-        [Route("{id:long}")]
         [HttpGet]
         [ProducesResponseType(typeof(ApiResponse), Status200OK)]
         public async Task<ApiResponse> Get(long id)
@@ -40,7 +40,7 @@ namespace Inide.WebServices.EndPoints.v1
             var s = await _auth.ValidateUserAsync("admin", "joke2019%$");
             if (s)
             {
-                var userDefinition = await _auth.GetUserByNameAsync("admin");
+                var userDefinition = await _auth.GetUserDefinitionAsync("admin");
                 if (userDefinition.IsActive==1)
                 {
                     return new ApiResponse(){IsError = true,Message = "Cuenta Desactivada",StatusCode = 401};
