@@ -36,5 +36,7 @@ namespace Inide.WebServices.Persistence.Repository
                 return _entidadRepository ??= new EntidadRepository();
             }
         }
-    }
+
+
+    } //fin
 }

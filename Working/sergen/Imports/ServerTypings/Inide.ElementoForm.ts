@@ -9,7 +9,7 @@ namespace Inide.Inide {
         Descripcion: Serenity.StringEditor;
         Comentarios: Serenity.StringEditor;
         KeyEntidad: Serenity.IntegerEditor;
-        CodigoPadre: Serenity.StringEditor;
+        CodigoPadre: Serenity.IntegerEditor;
     }
 
     [,
@@ -17,7 +17,7 @@ namespace Inide.Inide {
         ['Descripcion', () => Serenity.StringEditor],
         ['Comentarios', () => Serenity.StringEditor],
         ['KeyEntidad', () => Serenity.IntegerEditor],
-        ['CodigoPadre', () => Serenity.StringEditor]
+        ['CodigoPadre', () => Serenity.IntegerEditor]
     ].forEach(x => Object.defineProperty(ElementoForm.prototype, <string>x[0], {
         get: function () {
             return this.w(x[0], (x[1] as any)());

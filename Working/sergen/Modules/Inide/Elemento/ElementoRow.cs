@@ -15,14 +15,14 @@ namespace Inide.Inide.Entities
     [ModifyPermission("Administration:General")]
     public sealed class ElementoRow : Row, IIdRow, INameRow
     {
-        [DisplayName("Key Elemento"), Size(10), PrimaryKey, QuickSearch]
-        public String KeyElemento
+        [DisplayName("Key Elemento"), Identity]
+        public Int64? KeyElemento
         {
             get { return Fields.KeyElemento[this]; }
             set { Fields.KeyElemento[this] = value; }
         }
 
-        [DisplayName("Codigo"), Size(10), NotNull]
+        [DisplayName("Codigo"), Size(10), NotNull, QuickSearch]
         public String Codigo
         {
             get { return Fields.Codigo[this]; }
@@ -50,8 +50,8 @@ namespace Inide.Inide.Entities
             set { Fields.KeyEntidad[this] = value; }
         }
 
-        [DisplayName("Codigo Padre"), Size(10), NotNull, ForeignKey("[Core].[Elemento]", "KeyElemento"), LeftJoin("jCodigoPadre"), TextualField("CodigoPadreCodigo")]
-        public String CodigoPadre
+        [DisplayName("Codigo Padre"), ForeignKey("[Core].[Elemento]", "KeyElemento"), LeftJoin("jCodigoPadre"), TextualField("CodigoPadreCodigo")]
+        public Int64? CodigoPadre
         {
             get { return Fields.CodigoPadre[this]; }
             set { Fields.CodigoPadre[this] = value; }
@@ -107,7 +107,7 @@ namespace Inide.Inide.Entities
         }
 
         [DisplayName("Codigo Padre"), Expression("jCodigoPadre.[CodigoPadre]")]
-        public String CodigoPadre1
+        public Int64? CodigoPadre1
         {
             get { return Fields.CodigoPadre1[this]; }
             set { Fields.CodigoPadre1[this] = value; }
@@ -120,7 +120,7 @@ namespace Inide.Inide.Entities
 
         StringField INameRow.NameField
         {
-            get { return Fields.KeyElemento; }
+            get { return Fields.Codigo; }
         }
 
         public static readonly RowFields Fields = new RowFields().Init();
@@ -132,12 +132,12 @@ namespace Inide.Inide.Entities
 
         public class RowFields : RowFieldsBase
         {
-            public StringField KeyElemento;
+            public Int64Field KeyElemento;
             public StringField Codigo;
             public StringField Descripcion;
             public StringField Comentarios;
             public Int64Field KeyEntidad;
-            public StringField CodigoPadre;
+            public Int64Field CodigoPadre;
 
             public StringField KeyEntidadDescripcion;
             public Int32Field KeyEntidadKeyGrupoEntidad;
@@ -147,7 +147,7 @@ namespace Inide.Inide.Entities
             public StringField CodigoPadreDescripcion;
             public StringField CodigoPadreComentarios;
             public Int64Field CodigoPadreKeyEntidad;
-            public StringField CodigoPadre1;
+            public Int64Field CodigoPadre1;
         }
     }
 }

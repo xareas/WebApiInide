@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoWrapper.Wrappers;
 using Inide.WebServices.Application.Factory;
+using Inide.WebServices.Application.Handlers.Base;
 using Microsoft.AspNetCore.Http;
 using Inide.WebServices.Services.Contracts;
 using MediatR;
@@ -18,7 +19,7 @@ namespace Inide.WebServices.Application.Handlers.Eventos
         {
             public long EntityId { get; set; }
         }
-        public class Handler : CommandBase<IEventoService>, IRequestHandler<Query, ApiResponse>
+        private class Handler : CommandBase<IEventoService>, IRequestHandler<Query, ApiResponse>
         {
             public Handler(IEventoService service, IDbConnection connection, IMapper mapper) : base(service,
                 connection, mapper)

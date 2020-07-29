@@ -15,7 +15,7 @@ namespace Inide.WebServices.Persistence.Common
        
         private readonly IConfiguration _config;
         
-        private  string DbConnectionString => _config.GetConnectionString(ConfigPersistence.DefaultDb);
+        private  string DbConnectionString => _config.GetConnectionString(FinalPersistence.DefaultDb);
         private IDbConnection DbConnection => new SqlConnection(DbConnectionString);
 
         protected DbFactoryBase(IConfiguration config)

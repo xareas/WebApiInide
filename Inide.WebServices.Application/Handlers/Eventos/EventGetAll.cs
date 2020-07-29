@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Inide.WebServices.Application.Handlers.Base;
 using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Services.Contracts;
 using MediatR;
@@ -16,9 +17,10 @@ namespace Inide.WebServices.Application.Handlers.Eventos
     {
         public class Query : IRequest<IEnumerable<EventoResponse>>
         {
+
         }
 
-        public class Handler : QueryBase<IEventoService>,IRequestHandler<Query,IEnumerable<EventoResponse>>
+        private class Handler : HandlerBase<IEventoService>,IRequestHandler<Query,IEnumerable<EventoResponse>>
         {
             public Handler(IEventoService service, IDbConnection connection, IMapper mapper) : base(service, connection, mapper)
             {

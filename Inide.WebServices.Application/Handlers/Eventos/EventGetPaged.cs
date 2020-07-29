@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
+using Inide.WebServices.Application.Handlers.Base;
 using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Services.Contracts;
@@ -23,7 +24,7 @@ namespace Inide.WebServices.Application.Handlers.Eventos
             public UrlQueryParameters Parameters { get; set; }
         }
 
-        public class Handler: QueryBase<IEventoService>,IRequestHandler<Query,IEnumerable<EventoResponse>>
+        private class Handler: HandlerBase<IEventoService>,IRequestHandler<Query,IEnumerable<EventoResponse>>
         {
             private readonly IHttpContextAccessor _context;
             public Handler(IHttpContextAccessor context,IEventoService service, IDbConnection connection, IMapper mapper) : base(service, connection, mapper)
@@ -34,7 +35,8 @@ namespace Inide.WebServices.Application.Handlers.Eventos
             public async Task<IEnumerable<EventoResponse>> Handle(Query request, CancellationToken cancellationToken)
             {
 
-               
+                var valor = _context.HttpContext.User.Claims;
+
                 var pagedRequest = new ListRequest() { Take = request.Parameters.PageSize, Skip = request.Parameters.Skip};
             
                 var data = await _service.ListAsync(_connection, pagedRequest);

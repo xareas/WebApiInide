@@ -20,10 +20,7 @@ namespace Inide.WebServices.Services
             _config = config;
             _logger = logger;
         }
-
-      
-       
-
+        
 
     }
 }

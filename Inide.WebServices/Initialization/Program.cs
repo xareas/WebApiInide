@@ -16,7 +16,8 @@ namespace Inide.WebServices
             var logger = builder.Services.GetService<ILogger<Program>>();
             try
             {
-                logger.LogInformation("Iniciando Servicios Web");
+                logger.LogInformation("Iniciando Servicios Web Inide ");
+                logger.LogDebug("Kestrel http://*:5000/swagger/index.html");
                 builder.Run();
             }
             catch (Exception ex)
@@ -36,7 +37,7 @@ namespace Inide.WebServices
                     var config = hostingContext.Configuration;
                     log.ReadFrom.Configuration(config)
                         .Enrich.FromLogContext()
-                        .WriteTo.File($"logs/WebServiceLogApi-.txt",rollingInterval: RollingInterval.Day);
+                        .WriteTo.File($"logs/WebServiceLog-.txt",rollingInterval: RollingInterval.Day);
 
                 })
                 .ConfigureWebHostDefaults(webBuilder =>

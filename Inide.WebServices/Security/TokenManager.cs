@@ -67,15 +67,14 @@ namespace Inide.WebServices.Security
         /// <returns></returns>
         public async Task<string> GenerateAccessToken(IUserDefinition user)
         {
-            
-            var role = user.KeyInstitucion == AppConst.CodeInide ? AppConst.Claims.Roles.Internal : AppConst.Claims.Roles.Public;
+            var role = user.KeyInstitucion ==  _jwtOptions.KeyMaster ? AppConst.Claims.Roles.Internal : AppConst.Claims.Roles.Public;
 
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Jti, user.UserId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Sub, user.UserName),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.NameId, user.KeyInstitucion.ToString()),
+                new Claim("inst", user.KeyInstitucion.ToString()),
                 new Claim(ClaimTypes.Role, role)
             };
           

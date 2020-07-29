@@ -17,6 +17,6 @@ namespace Inide.Inide.Forms
         public String Descripcion { get; set; }
         public String Comentarios { get; set; }
         public Int64 KeyEntidad { get; set; }
-        public String CodigoPadre { get; set; }
+        public Int64 CodigoPadre { get; set; }
     }
 }

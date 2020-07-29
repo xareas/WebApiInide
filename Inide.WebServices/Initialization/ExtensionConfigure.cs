@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoWrapper;
+using Inide.WebServices.Constants;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Inide.WebServices.Initialization
 {
@@ -27,15 +30,32 @@ namespace Inide.WebServices.Initialization
             return app;
         }
 
-        public static IApplicationBuilder UseConfigureSwagger(this IApplicationBuilder app)
+        public static IApplicationBuilder UseConfigureSwagger(this IApplicationBuilder app,IConfiguration config)
         {
+            //Obtenemos el theme
+            var theme = config.GetSection(AppConst.SettingsTheme).Get<string>();
+            theme += ".css";
+
+
             //Habilitar Swagger and SwaggerUI
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
+            app.UseSwagger(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "WebServices INISE-SEN v1");
+                c.RouteTemplate = "swagger/{documentName}/swagger.json";
             });
 
+            
+            app.UseSwaggerUI(opts =>
+            {
+                opts.RoutePrefix = "swagger";
+                opts.DocumentTitle = "Documento WebServices";
+                opts.DocExpansion(DocExpansion.None);
+                opts.InjectStylesheet(theme);
+                opts.InjectJavascript("swagger.js");
+                opts.SwaggerEndpoint("/swagger/v1/swagger.json", "WebServices INISE-SEN v1");
+            });
+
+            app.UseStaticFiles();
+            
             return app;
 
         }

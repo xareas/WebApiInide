@@ -16,5 +16,7 @@ namespace Inide.WebServices.Infrastructure.Configs
         public int ExpiresMinutes { get; set; }
         public string Culture { get; set; }
         public string CultureUI { get; set; }
+        public int KeyMaster { get; set; }
+
     }
 }

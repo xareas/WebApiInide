@@ -6,13 +6,13 @@ using System.Text;
 using Inide.WebServices.Persistence.Contracts;
 using Serenity.Data;
 using Serenity.Services;
-using MyRow = Inide.WebServices.Persistence.Domain.Evento;
+using Entity = Inide.WebServices.Persistence.Domain.Evento;
 
 namespace Inide.WebServices.Persistence.Repository
 {
-    public class EventoRepository : Repository<MyRow>,IEventoRepository<MyRow>
+    public class EventoRepository : Repository<Entity>,IEventoRepository<Entity>
     {
-        private static MyRow.RowFields fld =>MyRow.Fields;
+        private static Entity.RowFields Fields =>Entity.Fields;
        
     }
 

@@ -5,10 +5,10 @@ using Inide.WebServices.Persistence.Contracts;
 using Inide.WebServices.Persistence.Domain;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-
+using Entity = Inide.WebServices.Persistence.Domain.UserDefinition;
 namespace Inide.WebServices.Services.Contracts
 {
-    public interface IUserService:IServiceBase,IUserRepository<UserDefinition>
+    public interface IUserService:IServiceBase,IUserRepository<Entity>
     {
        
     }

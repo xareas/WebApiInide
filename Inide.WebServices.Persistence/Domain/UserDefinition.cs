@@ -11,7 +11,7 @@ using Serenity.Data.Mapping;
 
 namespace Inide.WebServices.Persistence.Domain
 {
-    [TableName("[Admon].[Users]"),ConnectionKey(ConfigPersistence.DefaultDb)]
+    [TableName("[Admon].[Users]")]
     public class UserDefinition : Row, IIdRow, INameRow,IUserDefinition
     {
         [Identity]
@@ -79,7 +79,7 @@ namespace Inide.WebServices.Persistence.Domain
         }
 
 
-        [DisplayName("Institucion"),NotMapped]
+        [DisplayName("Institucion")]
         public Int64? KeyInstitucion
         {
             get => Fields.KeyInstitucion[this];

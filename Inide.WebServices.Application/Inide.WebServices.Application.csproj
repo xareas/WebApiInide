@@ -5,16 +5,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.0.1" />
     <PackageReference Include="AutoWrapper.Core" Version="4.2.2" />
     <PackageReference Include="FluentDateTime" Version="2.0.0" />
     <PackageReference Include="FluentEmail.Core" Version="2.8.0" />
+    <PackageReference Include="FluentEmail.Razor" Version="2.8.0" />
+    <PackageReference Include="FluentEmail.Smtp" Version="2.8.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="9.0.1" />
     <PackageReference Include="MediatR" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Inide.WebServices.Services\Inide.WebServices.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="HttpClients\" />
   </ItemGroup>
 
 </Project>

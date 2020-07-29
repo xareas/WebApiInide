@@ -8,6 +8,7 @@ using AutoMapper;
 using AutoWrapper.Wrappers;
 using Inide.WebServices.Application.Events;
 using Inide.WebServices.Application.Factory;
+using Inide.WebServices.Application.Handlers.Base;
 using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Persistence.Domain;
 using Inide.WebServices.Services.Contracts;
@@ -26,7 +27,7 @@ namespace Inide.WebServices.Application.Handlers.Eventos
             public CreateEventoRequest NewEntity { get; set; }
         }
 
-        public class Handler : CommandBase<IEventoService>,IRequestHandler<Query,ApiResponse>
+        private class Handler : CommandBase<IEventoService>,IRequestHandler<Query,ApiResponse>
         {
             public Handler(IEventoService service, IDbConnection connection, IMapper mapper) : base(service, connection, mapper)
             {

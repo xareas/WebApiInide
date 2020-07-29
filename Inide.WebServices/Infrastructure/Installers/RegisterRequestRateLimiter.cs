@@ -25,8 +25,8 @@ namespace Inide.WebServices.Infrastructure.Installers
             // https://github.com/aspnet/Hosting/issues/793
             // Registramos a  IHttpContextAccessor no es registrado por defecto.
             // para que podamos tener acceso al contexto del http.
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            //services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            
             // Configuracion
             services.AddSingleton<IRateLimitConfiguration, RateLimitConfiguration>();
         }

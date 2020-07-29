@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Inide.WebServices.Infrastructure.Extensions;
-using Inide.WebServices.Infrastructure.Mapping;
+using Inide.WebServices.Mapping;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,6 +22,11 @@ namespace Inide.WebServices.Initialization
              return services;
         }
 
+        public static IServiceCollection AddContextHttpRegister(this IServiceCollection services)
+        {
+            services.AddHttpContextAccessor();
+            return services;
+        }
         public static IServiceCollection AddMemoryCacheRegister(this IServiceCollection services)
         {
             services.AddDistributedMemoryCache();

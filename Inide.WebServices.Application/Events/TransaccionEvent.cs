@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Inide.WebServices.Application.Events
 {
@@ -13,11 +14,11 @@ namespace Inide.WebServices.Application.Events
     /// </summary>
     public class TransaccionEvent: INotification
     {
-        public Guid TransaccionId { get; }
+        public string Message { get; }
 
-        public TransaccionEvent(Guid transaccionId)
+        public TransaccionEvent(string message)
         {
-            TransaccionId = transaccionId;
+            Message = message;
         }
     }
 
@@ -26,9 +27,15 @@ namespace Inide.WebServices.Application.Events
     /// </summary>
     public class TransaccionEventHandler: INotificationHandler<TransaccionEvent>
     {
+        private readonly ILogger<TransaccionEventHandler> _logger;
+
+        public TransaccionEventHandler(ILogger<TransaccionEventHandler> logger)
+        {
+            _logger = logger;
+        }
         public async Task Handle(TransaccionEvent notification, CancellationToken cancellationToken)
         {
-           
+            await Task.Run(() => _logger.LogInformation(notification.Message), cancellationToken);
         }
     }
 

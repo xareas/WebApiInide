@@ -15,8 +15,8 @@ namespace Inide.WebServices.Infrastructure.Installers
     {
         public void RegisterAppServices(IServiceCollection services, IConfiguration config)
         {
-            var appSettingsSection = config.GetSection(AppConst.SettingsApp);
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            var appSettings = config.GetSection(AppConst.SettingsApp)
+                                    .Get<AppSettings>();
             
             
             services.AddAuthentication()

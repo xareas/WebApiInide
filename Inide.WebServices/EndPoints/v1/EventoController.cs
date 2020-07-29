@@ -1,20 +1,24 @@
-﻿using AutoWrapper.Wrappers;
+﻿using System;
+using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Security.Claims;
+using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using Inide.WebServices.Application.Handlers.Eventos;
 using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Application.ResponseModels;
 using Inide.WebServices.Infrastructure.Filters;
 using Inide.WebServices.Persistence.Domain;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 
 
 namespace Inide.WebServices.EndPoints.v1
 {
-    
+    [ApiExplorerSettings(GroupName = "v1")]
     public class EventoController : ControllerBaseApp<EventoController>
     {
        
@@ -23,6 +27,8 @@ namespace Inide.WebServices.EndPoints.v1
         public EventoController(IEventManager eventManager,IMediator mediator, ILogger<EventoController> logger) : base(mediator, logger)
         {
             _commands = eventManager;
+
+           
         }
        
     
@@ -30,12 +36,12 @@ namespace Inide.WebServices.EndPoints.v1
         /// Obtiene todos los eventos registrados
         /// </summary>
         /// <returns>Retorna un objeto del tipo EventoQueryResponse</returns>
-        [HttpGet]
+        [HttpGet,SetThreadCurrentPrincipal]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
         public async Task<IEnumerable<EventoResponse>> Get()
+
         {
-            var x = this.User;
-           return await SendAsync(_commands.GetAll);
+         return await SendAsync(_commands.GetAll);
         }
 
         /// <summary>
@@ -43,7 +49,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// </summary>
         /// <param name="urlQueryParameters">Paginacion</param>
         /// <returns>Retorna lista de eventos</returns>
-        [Route("paged"),HttpGet]
+        [Route("paged"),HttpGet,SetThreadCurrentPrincipal]
          public async Task<IEnumerable<EventoResponse>> Get([FromQuery] UrlQueryParameters urlQueryParameters)
         {
             Logger.LogInformation("Cargando los datos");
@@ -63,7 +69,7 @@ namespace Inide.WebServices.EndPoints.v1
         /// <response code="400">Solicitud es Invalida</response>
         /// <response code="404">Elemento no Encontrado</response>
         /// <response code="422">Solicitud no contiene los valores correctos</response>
-        [Route("{codigo:long}"),HttpGet]
+        [Route("{codigo:long}"),HttpGet,SetThreadCurrentPrincipal]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Find))]
         public async Task<EventoResponse> Get(long codigo)
         {
@@ -85,7 +91,7 @@ namespace Inide.WebServices.EndPoints.v1
        /// <response code="400">Solicitud es Invalida</response>
        /// <response code="404">Elemento no Encontrado</response>
        /// <response code="422">Solicitud no contiene los valores correctos</response>
-        [HttpGet,Route("[action]/{categoria:long}")]
+        [HttpGet,Route("[action]/{categoria:long}"),SetThreadCurrentPrincipal]
         [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Find))]
         public async Task<IEnumerable<Evento>> GetFilter(long categoria)
         {
@@ -113,6 +119,7 @@ namespace Inide.WebServices.EndPoints.v1
         {
 
             var command = _commands.Post;
+
             command.NewEntity = createRequest;
             
             return await SendAsync(command);

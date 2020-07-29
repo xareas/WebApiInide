@@ -1,12 +1,12 @@
 ﻿
 namespace Inide.Inide {
     export interface ElementoRow {
-        KeyElemento?: string;
+        KeyElemento?: number;
         Codigo?: string;
         Descripcion?: string;
         Comentarios?: string;
         KeyEntidad?: number;
-        CodigoPadre?: string;
+        CodigoPadre?: number;
         KeyEntidadDescripcion?: string;
         KeyEntidadKeyGrupoEntidad?: number;
         KeyEntidadComentarios?: string;
@@ -14,12 +14,12 @@ namespace Inide.Inide {
         CodigoPadreDescripcion?: string;
         CodigoPadreComentarios?: string;
         CodigoPadreKeyEntidad?: number;
-        CodigoPadre1?: string;
+        CodigoPadre1?: number;
     }
 
     export namespace ElementoRow {
         export const idProperty = 'KeyElemento';
-        export const nameProperty = 'KeyElemento';
+        export const nameProperty = 'Codigo';
         export const localTextPrefix = 'Inide.Elemento';
         export const deletePermission = 'Administration:General';
         export const insertPermission = 'Administration:General';

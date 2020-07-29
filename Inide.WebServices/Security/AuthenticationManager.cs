@@ -36,6 +36,7 @@ namespace Inide.WebServices.Security
             _settings = settings.Value;
             _jwtHandler = jwtHandler;
             _tokenManager = tokenManager;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<bool> ValidateUserAsync(string username, string password)

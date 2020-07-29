@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.SqlClient;
+using System.Security.Principal;
 using Inide.WebServices.Application.Handlers.Entidades;
 using Inide.WebServices.Application.Handlers.Eventos;
 using Inide.WebServices.Constants;
@@ -13,6 +14,7 @@ using Inide.WebServices.Persistence.Contracts;
 using Inide.WebServices.Security;
 using Inide.WebServices.Services;
 using Inide.WebServices.Services.Contracts;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serenity.Data;
@@ -48,7 +50,10 @@ namespace Inide.WebServices.Infrastructure.Installers
             services.AddTransient<IDbConnectionFactory>(e 
                 => new SqlDbFactory(config.GetConnectionString(AppConst.DefaultDb)));
 
-
+            //Principal Claims
+            services.AddTransient<IPrincipal>(
+                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            
             //Seguridad
             services.AddSingleton<IAuthenticationManager, AuthenticationManager>();
             services.AddSingleton<IJwtHandler,JwtHandler>();
@@ -73,7 +78,12 @@ namespace Inide.WebServices.Infrastructure.Installers
             //Manajeo de la Entidad de Dominio , llamada entidad
             services.AddScoped<IEntidadRepository<Entidad>, EntidadRepository>();
             services.AddScoped<IEntidadService, EntidadService>();
+            services.AddScoped<IGrupoEntidadRepository<GrupoEntidad>, GrupoEntidadRepository>();
+            services.AddScoped<IGrupoEntidadService, GrupoEntidadService>();
+            services.AddScoped<IElementoRepository<Elemento>, ElementoRepository>();
+            services.AddScoped<IElementoService, ElementoService>();
             services.AddSingleton<IEntidadManager, EntidadManager>();
+
 
 
         }

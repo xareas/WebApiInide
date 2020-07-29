@@ -15,7 +15,7 @@ namespace Inide.WebServices.Infrastructure.Installers
     {
         public void RegisterAppServices(IServiceCollection services, IConfiguration configuration)
         {
-            services.AddMediatR(typeof(EventGetAll.Handler).Assembly);
+            services.AddMediatR(typeof(EventGetAll.Query).Assembly);
 
         }
     }

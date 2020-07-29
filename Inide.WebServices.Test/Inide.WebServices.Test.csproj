@@ -41,8 +41,4 @@
     <ProjectReference Include="..\Inide.WebServices\Inide.WebServices.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="v1\" />
-  </ItemGroup>
-
 </Project>

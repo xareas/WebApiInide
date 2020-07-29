@@ -22,11 +22,11 @@ namespace Inide.WebServices.EndPoints.v1
    public class SampleApiController : ControllerBase
     {
         private readonly ILogger<SampleApiController> _logger;
-        private readonly IApiConnect _sampleApiConnect;
+        private readonly IApiClient _sampleApiClient;
         private readonly IAuthenticationManager _auth;
-        public SampleApiController(IAuthenticationManager auth,IApiConnect sampleApiConnect, ILogger<SampleApiController> logger) 
+        public SampleApiController(IAuthenticationManager auth,IApiClient sampleApiClient, ILogger<SampleApiController> logger) 
         {
-            _sampleApiConnect = sampleApiConnect;
+            _sampleApiClient = sampleApiClient;
             _logger = logger;
             _auth = auth;
           
@@ -48,7 +48,7 @@ namespace Inide.WebServices.EndPoints.v1
             }
 
             
-            return new ApiResponse(await _sampleApiConnect.GetDataAsync<SampleQueryResponse>($"/api/v1/sample/{id}"));
+            return new ApiResponse(await _sampleApiClient.GetDataAsync<SampleQueryResponse>($"/api/v1/sample/{id}"));
         }
 
        
@@ -67,7 +67,7 @@ namespace Inide.WebServices.EndPoints.v1
         {
             if (!ModelState.IsValid) { throw new ApiProblemDetailsException(ModelState); }
 
-            return new ApiResponse(await _sampleApiConnect.PostDataAsync<SampleQueryResponse, SampleRequest>("/api/v1/sample", createRequest));
+            return new ApiResponse(await _sampleApiClient.PostDataAsync<SampleQueryResponse, SampleRequest>("/api/v1/sample", createRequest));
         }
     }
 }

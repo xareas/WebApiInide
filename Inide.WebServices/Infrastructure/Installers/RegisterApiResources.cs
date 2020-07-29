@@ -40,12 +40,12 @@ namespace Inide.WebServices.Infrastructure.Installers
 
             
               //Registrar el Handler para Bearer Token. 
-              services.AddTransient<ProtectedApiBearerTokenHandler>();
+             // services.AddTransient<ProtectedApiBearerTokenHandler>();
             
              //Info: https://docs.microsoft.com/en-us/aspnet/core/fundamentals/http-requests?view=aspnetcore-3.0
-             services.AddHttpClient<IApiConnect, InideApiConnect>(client =>
+             services.AddHttpClient<IApiClient, InideApiClient>(client =>
             {
-                client.BaseAddress = new Uri(config["ApiResourceBaseUrls:InideApi"]);
+                client.BaseAddress = new Uri(config["AppSettings:ApiBaseUrls:InideApi"]);
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(HttpContentMediaTypes.JSON));
             })
@@ -56,14 +56,14 @@ namespace Inide.WebServices.Infrastructure.Installers
             .AddPolicyHandler(circuitBreakerPolicy);
 
             //Seguridad en AuthService 
-          services.AddHttpClient<IAuthServerConnect, AuthServerConnect>();
+         // services.AddHttpClient<IAuthServerConnect, AuthServerConnect>();
            
             // Cache
-            services.AddSingleton<IDiscoveryCache>(r =>
-            {
-                var factory = r.GetRequiredService<IHttpClientFactory>();
-                return new DiscoveryCache(config["ApiResourceBaseUrls:AuthServer"], () => factory.CreateClient());
-            });
+         //   services.AddSingleton<IDiscoveryCache>(r =>
+          //  {
+           //     var factory = r.GetRequiredService<IHttpClientFactory>();
+            //    return new DiscoveryCache(config["ApiResourceBaseUrls:AuthServer"], () => factory.CreateClient());
+           // });
         }
     }
 }

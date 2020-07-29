@@ -19,6 +19,12 @@
           "Identifier": "Elemento",
           "Module": "Inide",
           "PermissionKey": "Administration:General"
+        },
+        {
+          "Tablename": "Core.GrupoEntidad",
+          "Identifier": "GrupoEntidad",
+          "Module": "Inide",
+          "PermissionKey": "Administration:General"
         }
       ]
     }

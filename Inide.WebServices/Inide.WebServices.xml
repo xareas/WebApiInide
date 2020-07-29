@@ -14,11 +14,12 @@
             Interface que debe cumplir para la escritura de log en la base de datos
             </summary>
         </member>
-        <member name="M:Inide.WebServices.EndPoints.v1.AuthenticationController.Authenticate(Inide.WebServices.Application.RequestModels.UserAuthenticationRequest)">
+        <member name="M:Inide.WebServices.EndPoints.v1.AuthenticationController.Authenticate(Inide.WebServices.Application.RequestModels.UserAuthenticationRequest,FluentEmail.Core.IFluentEmail)">
             <summary>
             Permite Generar un Json Web Token
             </summary>
-            <param name="user">Usuario y Clave</param>
+            <param name="user">Introduzca su usuario y clave</param>
+            <param name="email">Correo inyectado</param>
              <returns>Token del usuario</returns>
             <response code="200">Crea un Token JWT(Json Web Token)</response>
             <response code="401">Acceso No Autorizado</response>
@@ -44,12 +45,18 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.GetElementos(System.Int64)">
+        <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.Elementos(System.Int64)">
             <summary>
             Obtiene un Listado de Elementos de la Entidaad
             </summary>
             <param name="id">Codigo de la entidad</param>
             <returns></returns>
+        </member>
+        <member name="M:Inide.WebServices.EndPoints.v1.EntidadController.Grupos">
+            <summary>
+            Obtiene el listado de los grupos de los elementos
+            </summary>
+            <returns>Listado de Grupos</returns>
         </member>
         <member name="M:Inide.WebServices.EndPoints.v1.EventoController.Get">
             <summary>
@@ -143,6 +150,13 @@
         <member name="T:Inide.WebServices.Infrastructure.Configs.AppSettings">
             <summary>
             Se encarga de leer la configuracion del Appsettings.json
+            </summary>
+        </member>
+        <member name="T:Inide.WebServices.Infrastructure.Filters.SetThreadCurrentPrincipalAttribute">
+            <summary>
+            Hacking debido aun problema de Thread.CurrentPrincipal en asp.net core 3.1
+            siempre devuelve nulo
+            https://github.com/dotnet/runtime/issues/29151
             </summary>
         </member>
         <member name="T:Inide.WebServices.Infrastructure.Helpers.LogRecord">

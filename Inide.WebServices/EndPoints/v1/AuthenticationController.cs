@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoWrapper.Wrappers;
+using FluentEmail.Core;
 using Inide.WebServices.Application.RequestModels;
 using Inide.WebServices.Contracts;
 using Inide.WebServices.Infrastructure.Filters;
@@ -28,7 +29,8 @@ namespace Inide.WebServices.EndPoints.v1
         /// <summary>
         /// Permite Generar un Json Web Token
         /// </summary>
-        /// <param name="user">Usuario y Clave</param>
+        /// <param name="user">Introduzca su usuario y clave</param>
+        /// <param name="email">Correo inyectado</param>
         ///  <returns>Token del usuario</returns>
         /// <response code="200">Crea un Token JWT(Json Web Token)</response>
         /// <response code="401">Acceso No Autorizado</response>
@@ -37,15 +39,35 @@ namespace Inide.WebServices.EndPoints.v1
         [HttpPost("login")]
         [AllowAnonymous,ValidationFilter]
        // [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Get))]
-        public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationRequest user)
+        public async Task<IActionResult> Authenticate([FromBody] UserAuthenticationRequest user,[FromServices]IFluentEmail email)
         {
             if (!await _authentication.ValidateUserAsync(user.UserName, user.Password)) 
                 return Unauthorized();
 
-            
-            var userDefinition = await _authentication.GetUserDefinitionAsync(user.UserName);
-            return Ok(new {Token = await _authentication.GetTokenAuthenticateAsync(userDefinition)});
+            try
+            {
+                var userDefinition = await _authentication.GetUserDefinitionAsync(user.UserName);
 
+                var template = @"Dear @Name, You are totally 
+                             @Name2. <hr/>
+                            <h1>Big Problems en el sistema </h1>";
+
+                //await email
+                //    .To("xareas@gmail.com")
+                //    .Subject("Prueba de Correo")
+               //     .UsingTemplate(template, new{ Name = "Francisco Areas", Name2="Managua,Nicaragua"} )
+               //     .SendAsync();
+            
+                return Ok(new {Token = await _authentication.GetTokenAuthenticateAsync(userDefinition)});
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+           
         }
 
        

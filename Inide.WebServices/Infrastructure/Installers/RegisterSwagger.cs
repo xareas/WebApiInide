@@ -21,6 +21,7 @@ namespace Inide.WebServices.Infrastructure.Installers
             //See: https://www.scottbrady91.com/Identity-Server/ASPNET-Core-Swagger-UI-Authorization-using-IdentityServer4
             services.AddSwaggerGen(opts =>
             {
+                
                 var urlTerms = config["AppSettings:Swagger:UrlTerms"];
                 var urlSite = config["AppSettings:Swagger:UrlSite"];
                 var urlLicense = config["AppSettings:Swagger:UrlSite"];

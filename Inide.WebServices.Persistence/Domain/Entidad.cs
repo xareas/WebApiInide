@@ -11,7 +11,7 @@ namespace Inide.WebServices.Persistence.Domain
     using System.ComponentModel;
     using System.IO;
 
-    [ConnectionKey(ConfigPersistence.DefaultDb),TableName("[Core].[Entidad]")]
+    [TableName("[Core].[Entidad]")]
     public sealed class Entidad : Row, IIdRow, INameRow
     {
         [DisplayName("No.Entidad"), Identity]
@@ -28,7 +28,7 @@ namespace Inide.WebServices.Persistence.Domain
             set => Fields.Descripcion[this] = value;
         }
 
-        [DisplayName("Grupo Entidad"), NotNull, ForeignKey("[Core].[GrupoEntidad]", "KeyGrupoEntidad"), LeftJoin("jKeyGrupoEntidad"), TextualField("GrupoEntidadDescipcion")]
+        [DisplayName("Grupo Entidad"), MinSelectLevel(SelectLevel.Always) , ForeignKey("[Core].[GrupoEntidad]", "KeyGrupoEntidad"), LeftJoin("jKeyGrupoEntidad"), TextualField("GrupoEntidadDescipcion")]
         public Int32? KeyGrupoEntidad
         {
             get => Fields.KeyGrupoEntidad[this];
@@ -42,7 +42,7 @@ namespace Inide.WebServices.Persistence.Domain
             set => Fields.Comentarios[this] = value;
         }
 
-        [DisplayName("Descripcion"), Expression("jKeyGrupoEntidad.[Descipcion]")]
+        [DisplayName("Descripcion"), Expression("jKeyGrupoEntidad.[Descipcion]"),MinSelectLevel(SelectLevel.Always) ]
         public String GrupoEntidadDescipcion
         {
             get => Fields.GrupoEntidadDescipcion[this];

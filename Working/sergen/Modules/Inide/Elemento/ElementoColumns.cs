@@ -14,7 +14,8 @@ namespace Inide.Inide.Columns
     public class ElementoColumns
     {
         [EditLink, DisplayName("Db.Shared.RecordId"), AlignRight]
-        public String KeyElemento { get; set; }
+        public Int64 KeyElemento { get; set; }
+        [EditLink]
         public String Codigo { get; set; }
         public String Descripcion { get; set; }
         public String Comentarios { get; set; }

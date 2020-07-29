@@ -11,15 +11,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serenity.Data;
 using Serenity.Services;
-using MyRow = Inide.WebServices.Persistence.Domain.UserDefinition;
+using Entity = Inide.WebServices.Persistence.Domain.UserDefinition;
 
 namespace Inide.WebServices.Persistence.Repository
 {
     
-    public class UserRepository: Repository<MyRow>, IUserRepository<MyRow>
+    public class UserRepository: Repository<Entity>, IUserRepository<Entity>
     {
-        private static MyRow.RowFields fld =>MyRow.Fields;
+        private static Entity.RowFields Fields =>Entity.Fields;
         private readonly IDbConnection _connection;
+        private const int UserFound = 0;
         public UserRepository(IDbConnection connection)
         {
             
@@ -27,7 +28,7 @@ namespace Inide.WebServices.Persistence.Repository
             
         }
         
-        public async Task<MyRow> GetUserAsync(string userName)
+        public async Task<Entity> GetUserAsync(string userName)
         {
             //Request de Filtrado
             var requestList = new ListRequest
@@ -36,7 +37,7 @@ namespace Inide.WebServices.Persistence.Repository
             };
             
             var users = await ListAsync(_connection, requestList);
-            return users.TotalCount == 0 ? null : users.Entities[0];
+            return users.TotalCount == 0 ? null : users.Entities[UserFound];
         }
     }
 }

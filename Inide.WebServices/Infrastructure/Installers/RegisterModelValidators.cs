@@ -15,8 +15,7 @@ namespace Inide.WebServices.Infrastructure.Installers
             services.AddTransient<IValidator<CreateEventoRequest>, CreateEventoRequestValidator>();
             services.AddTransient<IValidator<UpdateEventoRequest>, UpdateEventoRequestValidator>();
             services.AddTransient<IValidator<UserAuthenticationRequest>, UserAuthenticationRequestValidator>();
-
-
+            
             //Desabilitamos badrequest para devolver unprocesable entity - 117
             services.Configure<ApiBehaviorOptions>(opt => { opt.SuppressModelStateInvalidFilter = true; });
         }

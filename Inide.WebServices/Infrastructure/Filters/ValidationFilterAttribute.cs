@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoWrapper.Wrappers;
 using Microsoft.AspNetCore.Http;
@@ -19,4 +20,21 @@ namespace Inide.WebServices.Infrastructure.Filters
             }
         }
     }
+
+    /// <summary>
+    /// Hacking debido aun problema de Thread.CurrentPrincipal en asp.net core 3.1
+    /// siempre devuelve nulo
+    /// https://github.com/dotnet/runtime/issues/29151
+    /// </summary>
+    public class SetThreadCurrentPrincipalAttribute: ActionFilterAttribute
+    {
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (context.HttpContext.User == null) return;
+
+            if (context.HttpContext.User.Identity.IsAuthenticated)
+                Thread.CurrentPrincipal = context.HttpContext.User;
+        }
+    }
+
 }

@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
 using Inide.WebServices.Constants;
@@ -6,6 +7,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.Logging;
 
 namespace Inide.WebServices.EndPoints.v1
@@ -28,16 +30,21 @@ namespace Inide.WebServices.EndPoints.v1
             Logger = logger;
             Mediator = mediator;
             SetCulture();
+
+         
         }
 
         /// <summary>
         /// Cultura predeterminada del API
         /// </summary>
-        private static void SetCulture()
+        private  void SetCulture()
         {
             var culture = CultureInfo.GetCultureInfo(AppConst.DefaultCulture);
+           
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
+
+           
         }
 
         /// <summary>

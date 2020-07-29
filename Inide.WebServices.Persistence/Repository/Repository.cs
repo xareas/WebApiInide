@@ -66,6 +66,9 @@ namespace Inide.WebServices.Persistence.Repository
            return await Task.Run(()=>new MyListHandler().Process(connection, request));
         }
 
+        #region Interceptores o Manejadores de Eventos del ciclo de persistencia
+
+        
         /// <summary>
         /// Manejo de ciclo de Guardado
         /// </summary>
@@ -92,6 +95,8 @@ namespace Inide.WebServices.Persistence.Repository
                 var queryString  = this.Query.Text;
             }
         }
+
+        #endregion
 
     }
 }

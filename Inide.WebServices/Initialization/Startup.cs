@@ -1,4 +1,4 @@
-using Inide.WebServices.Infrastructure.Mapping;
+using Inide.WebServices.Mapping;
 using Inide.WebServices.Infrastructure.Extensions;
 using AspNetCoreRateLimit;
 using AutoMapper;
@@ -34,8 +34,10 @@ namespace Inide.WebServices
         // Agregamos los servicios al contenedor.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             //Registramos aplicando el patron Fluent Interface
             services.AddServicesRegister(Configuration)
+                    .AddContextHttpRegister()
                     .AddMemoryCacheRegister()
                     .AddAutoMapperRegister()
                     .AddControllersRegister();
@@ -50,7 +52,7 @@ namespace Inide.WebServices
             app.UseHttpsRedirection();
             //Permite el manejo de versiones del api
             app.UseApiVersioning();
-            app.UseConfigureSwagger();
+            app.UseConfigureSwagger(this.Configuration);
             //Serilog
             app.UseSerilogRequestLogging();
             //Habilitando la Libreria AspNetCoreRateLimit

@@ -15,12 +15,17 @@ namespace Inide.WebServices.Infrastructure.Installers
         public void RegisterAppServices(IServiceCollection services, IConfiguration configuration)
         {
             
+            //Configurar para IOptions
+
             var appSettingsSection = configuration.GetSection(AppConst.SettingsApp);
             services.Configure<AppSettings>(appSettingsSection);
 
             var appConnectionsSection = configuration.GetSection(AppConst.SettingsCnn);
             services.Configure<CnnSettings>(appConnectionsSection);
+         
             
+
+
         }
     }
 }
